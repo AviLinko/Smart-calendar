@@ -78,7 +78,7 @@ const MicrophonePage = () => {
     formData.append("recording", recordedAudio, "recording.webm"); 
 
     try {
-      const response = await fetch("http://localhost:5000/scan-recording", {
+      const response = await fetch("/scan-recording", {
         method: "POST",
         body: formData,
       });

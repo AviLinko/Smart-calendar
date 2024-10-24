@@ -53,10 +53,31 @@ def save_event(event_name, date, time, description, user_id="default_user"):
 
 def get_all_events():
     """Retrieve all events from the events collection and convert ObjectId to string."""
-    events = list(events_collection.find({}))
+    try:
+        events = list(events_collection.find({}))
     
-    # Convert ObjectId to string for JSON serialization
-    for event in events:
-        event['_id'] = str(event['_id'])
-    
+        # Convert ObjectId to string for JSON serialization
+        for event in events:
+            event['_id'] = str(event['_id'])
+        
+        return events
+    except Exception as e:
+        logging.error(f"Error retrieving events: {str(e)}")
+        return []
+
+def delete_event_by_id(event_id):
+    """Delete an event by its ID."""
+    from bson.objectid import ObjectId
+    try:
+        result = events_collection.delete_one({"_id": ObjectId(event_id)})
+        if result.deleted_count > 0:
+            logging.debug(f"Event with ID {event_id} deleted successfully.")
+            return True
+        else:
+            logging.warning(f"No event found with ID {event_id}.")
+            return False
+    except Exception as e:
+        logging.error(f"Error deleting event: {str(e)}")
+        return False
+
     return events

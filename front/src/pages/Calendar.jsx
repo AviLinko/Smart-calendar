@@ -4,7 +4,7 @@ import 'react-calendar/dist/Calendar.css';
 
 const CalendarPage = () => {
   const [date, setDate] = useState(new Date());
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState([]); 
   const [eventsForSelectedDate, setEventsForSelectedDate] = useState([]);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(true);
@@ -14,8 +14,10 @@ const CalendarPage = () => {
       try {
         const response = await fetch("/get-events");
         const data = await response.json();
-        if (data.status === "success") {
-          setEvents(data.events);
+
+        // Check if the data is in the correct format and contains events array
+        if (data.status === "success" && Array.isArray(data.events)) {
+          setEvents(data.events); // Set events only if it's a valid array
         } else {
           setMessage("Error fetching events.");
         }
@@ -32,6 +34,7 @@ const CalendarPage = () => {
 
   const handleDateChange = (newDate) => {
     setDate(newDate);
+    // Filter events for the selected date, checking if events is an array
     const eventsOnSelectedDate = events.filter(event => {
       const eventDate = new Date(event.date);
       return eventDate.toDateString() === newDate.toDateString();

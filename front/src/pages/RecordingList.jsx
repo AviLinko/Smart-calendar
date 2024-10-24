@@ -28,7 +28,7 @@ const RecordingList = () => {
 
   const playRecording = async (id) => {
     try {
-      const audio = new Audio(`http://localhost:5000/play-recording/${id}`);
+      const audio = new Audio(`/play-recording/${id}`);
       audio.play();
     } catch (error) {
       console.error("Error playing recording:", error);

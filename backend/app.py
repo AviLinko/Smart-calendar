@@ -7,6 +7,7 @@ import io
 from services.speech_to_text import scan_recording_route
 from services.gpt_service import extract_task_and_datetime 
 from services.events_service import get_all_events
+from services.tasks_service import delete_task_by_id
 
 load_dotenv()
 
@@ -116,6 +117,11 @@ def get_tasks():
     except Exception as e:
         logging.error(f"Error retrieving tasks: {str(e)}")
         return jsonify({"status": "error", "message": str(e)}), 500
+
+@app.route('/delete-task/<task_id>', methods=['DELETE'])
+def delete_task_route(task_id):
+    """Route to delete a task by its ID."""
+    return jsonify(delete_task_by_id(task_id))
 
 @app.route('/')
 def serve_frontend():
