@@ -3,7 +3,7 @@
 ## Overview
 
 **VoiceTasker** is a voice-based task and event manager that allows users to record voice inputs, 
-which are then transcribed into text and analyzed using GPT-3.5 Turbo to extract relevant information such as task details, dates, and times. 
+which are then transcribed into text and analyzed using ChatGPT API to extract relevant information such as task details, dates, and times. 
 These tasks are then saved to a calendar and a task list, helping users manage their schedule more effectively. 
 Users can scan recordings, and tasks are automatically added to the app’s internal calendar and displayed on the task list page.
 
